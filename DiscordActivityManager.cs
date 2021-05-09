@@ -1,4 +1,4 @@
-﻿using Discord;
+using Discord;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,7 +91,7 @@ namespace act8
 		/// </summary>
 		public static readonly Dictionary<string, Activity> SceneActivityReferences = new Dictionary<string, Activity>()
 		{
-			// { "SceneName", new Activity().AddState("Activity State") }
+			{ "SampleScene", new Activity().AddState("Sample Scene") }
 		};
 
 		#endregion
@@ -105,6 +105,11 @@ namespace act8
 		/// Auto change Discord Activity based on loaded Scene (DiscordActivityManager.SceneActivityReferences).
 		/// </summary>
 		public static bool SceneActivity = true;
+
+		/// <summary>
+		/// Whenever there is no Scene match in Scene references this activity will be used.
+		/// </summary>
+		public static readonly Activity DefaultActivity = new Activity().AddState("Idle"));
 
 		private static readonly long CLIENT_ID = 0;
 
@@ -177,7 +182,7 @@ namespace act8
 			if (SceneActivityReferences.ContainsKey(scene.name))
 				SetDiscordActivity(SceneActivityReferences[scene.name]);
 			else
-				SetDiscordActivity(new Activity().AddState("Idle"));
+				SetDiscordActivity(DefaultActivity);
 		}
 
 		private void RunCallbacks()
